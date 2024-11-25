@@ -7,14 +7,14 @@ const SPOONACULAR_API_URL = process.env.SPOONACULAR_API_URL;
 
 const searchMeals = async (req, res) => {
   try {
-    const { meal } = req.query;
+    const { meal, preferences} = req.query;
     const { user_id } = req.verified;
 
     const user = await User.findById(user_id);
-    
-    const dietPreferences = user.preferences.length
-      ? user.preferences.join(",")
-      : "";
+    // spliting the preferences into an array or setting to an empty array
+    const queryPreferences = preferences ? preferences.split(',') : [];
+    // concatinating user preferences with preferences passed into query params
+    const dietPreferences = [...user.preferences, ...queryPreferences].join(',');
 
     const meals = await axios.get(
       `${SPOONACULAR_API_URL}/recipes/complexSearch`,
