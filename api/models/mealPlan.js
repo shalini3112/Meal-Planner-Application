@@ -33,6 +33,16 @@ const MealPlanSchema = new mongoose.Schema({
   ],
 });
 
+// Pre-save hook to ensure max number of meals per plan allowed are not exceeded
+MealPlanSchema.pre("save", async function (next) {
+  // Check if meals exceed the allowed limit
+  const maxMeals=3;
+  if (this.meals.length > maxMeals) {
+    const error = new Error(`A meal plan cannot have more than ${maxMeals} meals.`);
+    return next(error);
+  }
+  next(); // saving the document if the condition is met
+});
 const MealPlan = mongoose.model("MealPlan", MealPlanSchema);
 
 export default MealPlan;
