@@ -14,14 +14,6 @@ const registerUser = async (req, res) => {
         .json({ error: "Must provide both username and password" });
     }
 
-    // Validating the dietary preferences
-    const invalidPreferences = validatePreferences(preferences);
-    if (invalidPreferences.length) {
-      return res
-        .status(400)
-        .json({ error: `Invalid dietary preferences: ${invalidPreferences}` });
-    }
-
     const hashedPassword = await hash(password);
     const userEntry = await User.create({
       username,
@@ -103,14 +95,6 @@ const updateDietPreferences = async (req, res) => {
     // Check if the user_id in headers matches the id parameter
     if (id !== user_id) {
       return res.status(403).json({ error: "Forbidden user." });
-    }
-
-    // Validating the dietary preferences
-    const invalidPreferences = validatePreferences(preferences);
-    if (invalidPreferences.length) {
-      return res
-        .status(400)
-        .json({ error: `Invalid dietary preferences: ${invalidPreferences}` });
     }
 
     const updatedUser = await User.findByIdAndUpdate(
