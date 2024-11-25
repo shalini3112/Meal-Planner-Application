@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { scrypt, randomBytes, timingSafeEqual } from 'crypto';
 
-// run this command line: node -e "console.log(require('crypto').randomBytes(16).toString('hex'))"
 const JWT_SECRET = process.env.JWT_SECRET;
 const KEYLEN = 32;
 
@@ -15,7 +14,6 @@ const hash = async (password) => {
             }
 
             const derivedHex = derivedKey.toString('hex');
-            console.log(`${salt}:${derivedHex}`);
 
             resolve(`${salt}:${derivedHex}`);
         });

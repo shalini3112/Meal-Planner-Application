@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { verifyToken } from '../util/auth.js';
 
 import  User  from '../models/user.js';

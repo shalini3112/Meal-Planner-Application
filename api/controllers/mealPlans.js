@@ -60,7 +60,6 @@ const deleteMealPlan = async (req, res) => {
 
     // Fetching the mealPlan based on id
     const mealPlan = await MealPlan.findById(id);
-    console.log(mealPlan);
     // checking if mealPlan exists
     if (!mealPlan) {
       return res.status(404).json({ error: "Meal plan not found." });
