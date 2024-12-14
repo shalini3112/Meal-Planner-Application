@@ -1,3 +1,4 @@
+import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
 
@@ -9,6 +10,9 @@ import mealPlans  from './api/routes/mealPlans.js';
 
 const app = express();
 const PORT = 8080;
+
+const options = { exposedHeader: ['Authorization'] };
+app.use(cors(options));
 
 app.use(express.json());
 

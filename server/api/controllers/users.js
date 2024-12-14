@@ -1,7 +1,5 @@
 import User from "../models/user.js";
 
-import { validatePreferences } from "../util/diet.js";
-
 import { hash, compare, signToken } from "../util/auth.js";
 
 const registerUser = async (req, res) => {
